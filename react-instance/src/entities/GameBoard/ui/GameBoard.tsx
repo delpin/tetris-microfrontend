@@ -7,11 +7,7 @@ interface Props {
 }
 
 const GameBoard = ({}: Props) => {
-    const {init, matrix} = useBoardFieldInfo();
-
-    useEffect(() => {
-      init(20, 10);
-    }, []);
+    const {matrix} = useBoardFieldInfo();
 
   return (
     <BoardBlockElements matrix={matrix} />

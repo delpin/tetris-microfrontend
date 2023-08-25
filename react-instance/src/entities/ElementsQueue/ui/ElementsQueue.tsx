@@ -3,11 +3,7 @@ import { useElementsQueue } from "../model/useElementsQueue"
 import { BoardBlockElements } from "shared/ui/board-block-elements";
 
 const ElementsQueue = () => {
-    const {futureMatrixElements, init} = useElementsQueue();
-
-    useEffect(() => {
-        init(5)
-    }, []);
+    const {futureMatrixElements} = useElementsQueue();
 
     return (
         <div className="flex flex-col gap-3">

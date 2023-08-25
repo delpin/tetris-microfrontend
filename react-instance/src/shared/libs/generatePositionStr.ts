@@ -1,0 +1,1 @@
+export const generatePositionStr = (x: number, y: number) => `${x}-${y}`;
