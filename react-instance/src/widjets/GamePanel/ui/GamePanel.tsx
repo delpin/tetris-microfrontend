@@ -8,6 +8,7 @@ import { memo } from "react"
 import { useInitGame } from "../model/useInitGame";
 import { useGameTick } from "../model/useGameTick";
 import { useMoveCurrentPiece } from "../model/useMoveCurrentPiece";
+import RotateButton from "features/RotatePieces/ui/RotateButton";
 
 const GamePanel = () => {
     useInitGame();
@@ -26,6 +27,7 @@ const GamePanel = () => {
                 <ToggleStartButton />
                 <LeftButton />
                 <RightButton />
+                <RotateButton />
             </div>
         </div>
     )

@@ -10,8 +10,10 @@ import { create } from 'zustand';
 export const useElementsQueue = create<ElementsQueueInfo>((set) => ({
   futureMatrixElements: [],
   sliceFirstElement: () => {
-    set((state) => ({futureMatrixElements: [generatePieceBlock()?.[0]].concat(state.futureMatrixElements.slice(1))
-    }))
+    set((state) => {
+      return ({
+      futureMatrixElements: state.futureMatrixElements.slice(1).concat([generatePieceBlock()?.[0]])
+    })})
   },
   init: (elementsCount) => {
     set(() => ({futureMatrixElements: new Array(elementsCount).fill(0).map(() => generatePieceBlock()?.[0])}))
