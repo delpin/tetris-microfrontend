@@ -6,7 +6,7 @@ import { movePieceDirection } from "shared/types/movePieceDirection";
 
 export const useGameTick = () => {
     const {status} = useToggleGameStatus();
-    const {move: movePiece} = useMovePiece();
+    const {move: movePiece, isForceDown} = useMovePiece();
     const gameInterval = useRef<ReturnType<typeof setTimeout>>();
 
     useEffect(() => {
@@ -21,11 +21,12 @@ export const useGameTick = () => {
 
     useEffect(() => {
         if(status === GameStatus.RUN) {
+            clearInterval(gameInterval.current);
             gameInterval.current = setInterval(() => {
                 gameTick();
-            }, 1000)
+            }, isForceDown ? 10 : 300)
         } else {
             clearInterval(gameInterval.current);
         }
-    }, [status]);
+    }, [status, isForceDown]);
 }

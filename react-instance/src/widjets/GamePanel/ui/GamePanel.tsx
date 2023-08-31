@@ -9,11 +9,14 @@ import { useInitGame } from "../model/useInitGame";
 import { useGameTick } from "../model/useGameTick";
 import { useMoveCurrentPiece } from "../model/useMoveCurrentPiece";
 import RotateButton from "features/RotatePieces/ui/RotateButton";
+import { useRestart } from "../model/useRestart";
+import {ForceDownButton} from "features/MovePieces";
 
 const GamePanel = () => {
     useInitGame();
     useGameTick();
     useMoveCurrentPiece();
+    useRestart();
 
     return (
         <div className="flex flex-col w-96 gap-4">
@@ -26,6 +29,7 @@ const GamePanel = () => {
             <div className="gap-3 flex">
                 <ToggleStartButton />
                 <LeftButton />
+                <ForceDownButton />
                 <RightButton />
                 <RotateButton />
             </div>

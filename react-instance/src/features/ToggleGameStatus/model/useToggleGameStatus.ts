@@ -2,23 +2,31 @@ import { GameStatus } from 'shared/types/gameStatus';
 import { create } from 'zustand';
 
   interface ToggleGameStatusInfo {
-    status: GameStatus | null
+    status: GameStatus | null;
+    prevStatus: GameStatus | null;
     init: () => void;
-    toggleGameRun: () => void
+    toggleGameRun: () => void;
+    finishGame: () => void;
   }
 
 export const useToggleGameStatus = create<ToggleGameStatusInfo>((set) => ({
-    status: null,
+  status: GameStatus.INIT,
+  prevStatus: GameStatus.INIT,
   init: () => {
-    set(() => ({status: GameStatus.RUN}))
+    set((state) => ({status: GameStatus.RUN, prevStatus: state.status}))
+  },
+  finishGame: () => {
+    set((state) => {
+        return {status: GameStatus.INIT, prevStatus: state.status}
+    })
   },
   toggleGameRun: () => {
     set((state) => {
         switch(state.status) {
             case GameStatus.RUN:
-                return {status: GameStatus.STOPED}
+                return {status: GameStatus.STOPED, prevStatus: state.status}
         default: 
-                return {status: GameStatus.RUN}
+                return {status: GameStatus.RUN, prevStatus: state.status}
         }
     })
   }

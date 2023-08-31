@@ -1,4 +1,5 @@
 export enum GameStatus {
     RUN = 'RUN',
-    STOPED = 'STOPED'
+    STOPED = 'STOPED',
+    INIT = 'INIT'
 }

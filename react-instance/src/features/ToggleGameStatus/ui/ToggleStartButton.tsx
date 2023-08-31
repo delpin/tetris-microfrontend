@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import  { memo } from 'react';
 import { useToggleGameStatus } from '../model/useToggleGameStatus';
 import { GameStatus } from 'shared/types/gameStatus';
 

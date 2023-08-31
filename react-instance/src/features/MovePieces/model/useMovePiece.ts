@@ -8,6 +8,8 @@ import { create } from 'zustand';
   interface MovePieceInfo {
     pieceCoordinates: PieceCoordinates
     prevPieceCoordinates: PieceCoordinates;
+    isForceDown: boolean;
+    setIsForceDown: (val: boolean) => void;
     forceSetPosition: (coords: PieceCoordinates) => void;
     init: () => void;
     move: (direction: movePieceDirection) => void
@@ -16,8 +18,12 @@ import { create } from 'zustand';
 export const useMovePiece = create<MovePieceInfo>((set) => ({
   pieceCoordinates: getInitialPiecePosition(),
   prevPieceCoordinates: getInitialPiecePosition(),
+  isForceDown: false,
+  setIsForceDown: (val: boolean) => {
+    set(() => ({isForceDown: val}))
+  },
   init: () => {
-    set(() => ({pieceCoordinates: getInitialPiecePosition(), prevPieceCoordinates: getInitialPiecePosition()}))
+    set(() => ({pieceCoordinates: getInitialPiecePosition(), prevPieceCoordinates: getInitialPiecePosition(), isForceDown: false}))
   },
   forceSetPosition: (coords) => {
     set((state) => {
