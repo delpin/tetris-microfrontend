@@ -2,6 +2,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
+const path = require("path");
+
 module.exports = (_, argv) => ({
   output: {
     publicPath: "http://localhost:8080/",
@@ -9,8 +11,11 @@ module.exports = (_, argv) => ({
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    preferAbsolute: true,
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    mainFiles: ['index'],
+    alias: {}
   },
-
   devServer: {
     port: 8080,
     historyApiFallback: true,
@@ -45,7 +50,7 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {
         home: "home@http://localhost:8080/remoteEntry.js",
-        react: "react@http://localhost:3000/remoteEntry.js",
+        tetris: "tetris@http://localhost:3000/remoteEntry.js",
       },
       exposes: {},
       shared: {
@@ -54,6 +59,10 @@ module.exports = (_, argv) => ({
           singleton: true,
           requiredVersion: deps.react,
         },
+        "react-router-dom": {
+          singleton: true,
+          requiredVersion: deps["react-router-dom"]
+        },
         "react-dom": {
           singleton: true,
           requiredVersion: deps["react-dom"],
@@ -61,7 +70,7 @@ module.exports = (_, argv) => ({
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: path.resolve(__dirname, 'public', 'index.html'),
     }),
   ],
 });

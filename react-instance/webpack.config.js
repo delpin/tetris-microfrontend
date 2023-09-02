@@ -35,37 +35,36 @@ module.exports = (_, argv) => ({
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
         },
-      },
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
       },
     ],
   },
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "react",
+      name: "tetris",
       filename: "remoteEntry.js",
       exposes: {
         "./Test": path.resolve(__dirname, 'src', 'shared', 'ui', 'test-component'),
+        "./TetrisPage": path.resolve(__dirname, 'src', 'pages', 'MainPage', 'ui', 'MainPage'),
       },
       shared: {
+        ...deps,
         react: {
           singleton: true,
-          requiredVersion: deps.react,
-          eager: true,
+          requiredVersion: deps.react
+        },
+        "react-router-dom": {
+          singleton: true,
+          requiredVersion: deps["react-router-dom"]
         },
         "react-dom": {
           singleton: true,
-          requiredVersion: deps["react-dom"],
-          eager: true
+          requiredVersion: deps["react-dom"]
         },
       },
     }),
