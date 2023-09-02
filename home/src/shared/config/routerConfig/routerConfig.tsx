@@ -1,4 +1,3 @@
-import React, { Suspense } from "react";
 import { RouteObject } from "react-router-dom";
 import TetrisPage from 'tetris/TetrisPage';
 

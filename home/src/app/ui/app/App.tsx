@@ -3,7 +3,10 @@ import "app/styles/index.scss";
 
 
 const App = () => (
-  <RouterProvider />
+  <div>
+    <RouterProvider />
+  </div>
+
 );
 
 export default App;
