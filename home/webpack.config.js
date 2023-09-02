@@ -7,7 +7,7 @@ const path = require("path");
 
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: argv.mode === 'development' ? "http://localhost:3000/" : "https://tetris-microfrontend-home.vercel.app/",
   },
 
   resolve: {
@@ -50,8 +50,7 @@ module.exports = (_, argv) => ({
       name: "home",
       filename: "remoteEntry.js",
       remotes: {
-        home: "home@http://localhost:8080/remoteEntry.js",
-        tetris: "tetris@http://localhost:3000/remoteEntry.js",
+        tetris: argv.mode === 'development' ? "tetris@http://localhost:3000/remoteEntry.js" : "tetris@https://tetris-microfrontend-react.vercel.app/remoteEntry.js",
       },
       exposes: {},
       shared: {
